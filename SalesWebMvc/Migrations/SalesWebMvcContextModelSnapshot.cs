@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesWebMvc.Models;
-
 namespace SalesWebMvc.Migrations
 {
     [DbContext(typeof(SalesWebMvcContext))]
@@ -14,82 +13,73 @@ namespace SalesWebMvc.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
             modelBuilder.Entity("SalesWebMvc.Models.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+                b.Property<string>("Name");
+                b.HasKey("Id");
 
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Department");
-                });
+                b.ToTable("Department");
+            });
 
             modelBuilder.Entity("SalesWebMvc.Models.SalesRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<double>("Amount");
+                b.Property<double>("Amount");
 
-                    b.Property<DateTime>("Date");
+                b.Property<DateTime>("Date");
 
-                    b.Property<int?>("SellerId");
+                b.Property<int?>("SellerId");
 
-                    b.Property<int?>("StatusId");
+                b.Property<int>("Status");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("SellerId");
+                b.HasIndex("SellerId");
 
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("SalesRecord");
-                });
+                b.ToTable("SalesRecord");
+            });
 
             modelBuilder.Entity("SalesWebMvc.Models.Seller", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<double>("BaseSalary");
+                b.Property<double>("BaseSalary");
 
-                    b.Property<DateTime>("BirthDate");
+                b.Property<DateTime>("BirthDate");
 
-                    b.Property<int?>("DepartmentId");
+                b.Property<int?>("DepartmentId");
 
-                    b.Property<string>("Email");
+                b.Property<string>("Email");
 
-                    b.Property<string>("Name");
+                b.Property<string>("Name");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
+                b.HasIndex("DepartmentId");
 
-                    b.ToTable("Seller");
-                });
+                b.ToTable("Seller");
+            });
 
             modelBuilder.Entity("SalesWebMvc.Models.SalesRecord", b =>
-                {
-                    b.HasOne("SalesWebMvc.Models.Seller", "Seller")
-                        .WithMany("Sales")
-                        .HasForeignKey("SellerId");
-
-                    b.HasOne("SalesWebMvc.Models.SalesRecord", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
-                });
+            {
+                b.HasOne("SalesWebMvc.Models.Seller", "Seller")
+                    .WithMany("Sales")
+                    .HasForeignKey("SellerId");
+            });
 
             modelBuilder.Entity("SalesWebMvc.Models.Seller", b =>
-                {
-                    b.HasOne("SalesWebMvc.Models.Department", "Department")
-                        .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId");
-                });
+            {
+                b.HasOne("SalesWebMvc.Models.Department", "Department")
+                    .WithMany("Sellers")
+                    .HasForeignKey("DepartmentId");
+            });
 #pragma warning restore 612, 618
         }
     }
